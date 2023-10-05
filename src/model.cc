@@ -1,0 +1,4 @@
+
+namespace s21 {
+    
+}

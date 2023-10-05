@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SimpleGraph</class>
+ <widget class="QWidget" name="SimpleGraph">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1281</width>
+    <height>641</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="backgroundLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>-10</y>
+     <width>1281</width>
+     <height>641</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>82</y>
+     <width>1101</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	background-color: #151c26;
+	border-radius: 20px;
+	border: 1px solid #44eb9b;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="previousButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>71</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	background-color: #44eb9b;
+	border-radius: 10px;
+	border-image: url(:/src/image/previous.png) stretch; 
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCustomPlot" name="graph" native="true">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>110</y>
+     <width>661</width>
+     <height>431</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

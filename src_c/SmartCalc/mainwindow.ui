@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1270</width>
+    <height>630</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="main_background">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>1280</width>
+      <height>640</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>150</y>
+      <width>401</width>
+      <height>311</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	background-color: #151c26;
+	border-radius: 20px;
+	border: 1px solid #44eb9b;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="selectButton">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>390</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color: #44eb9b;
+	color: #151c26;
+	border-radius: 20px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Run</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>180</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: #44eb9b;
+	font-size: 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:700;&quot;&gt;Select your calculator:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>240</y>
+      <width>251</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QRadioButton" name="simpleCalc">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	color: #44eb9b;
+	font-size: 16px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Simple</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="mortageCalc">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	color: #44eb9b;
+	font-size: 16px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Mortage</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="depositCalc">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	color: #44eb9b;
+	font-size: 16px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Deposit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1270</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
