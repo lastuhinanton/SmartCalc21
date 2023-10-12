@@ -314,85 +314,120 @@ namespace s21 {
       return code;
     }
 
-    int queue_input(struct queue *queue, char *s) {
+    double customStrToDouble(const std::string& str, int *ind) {
+      double result = 0.0;
+      double fraction = 0.1;
+      bool isNegative = false;
+      size_t index = *ind;
+
+      if (str[index] == '-') {
+          isNegative = true;
+          index += 1;
+      } else if (str[0] == '+') {
+          index += 1;
+      }
+
+      while (index < str.size() && std::isdigit(str[index])) {
+          result = result * 10.0 + (str[index] - '0');
+          index++;
+      }
+
+      if (index < str.size() && str[index] == '.') {
+          index++;
+
+          while (index < str.size() && std::isdigit(str[index])) {
+              result += (str[index] - '0') * fraction;
+              fraction *= 0.1;
+              index++;
+          }
+      }
+
+      if (isNegative) {
+          result = -result;
+      }
+      *ind = index;
+
+      return result;
+    }
+
+    int queue_input(struct queue *queue, const std::string &str) {
+      std::string str_new = str;
       char oper[5];
-      char *ptr = s;
+      int index = 0;
       int correct = 1;
-      while (*ptr != '\0' && correct) {
-        if (isNumber(*ptr)) {
-          char *endptr = ptr;
-          double d = strtod(ptr, &endptr);
+      while (index != str_new.size() && correct) {
+        if (isNumber(str_new[index])) {
+          double d = customStrToDouble(str_new, &index);
           correct = isnormal(d);
           enqueue(d, 0, queue);
-          ptr = endptr;
-        } else if (isOperatorOrParanth(*ptr)) {
-          if ((*ptr == '-') && (isEmpty(queue) || ((queue->last->is_oper == 1) &&
+        } else if (isOperatorOrParanth(str_new[index])) {
+          if ((str_new[index] == '-') && (isEmpty(queue) || ((queue->last->is_oper == 1) &&
                                                   (queue->last->number == 0.)))) {
-            *ptr = '~';
+            str_new[index] = '~';
           }
-          oper[0] = *ptr++;
+          oper[0] = str_new[index++];
           oper[1] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
-        } else if (*ptr == 'l' && *(ptr + 1) == 'n') {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
+        } else if (str_new[index] == 'l' && str_new[index + 1] == 'n') {
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
           oper[2] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
-        } else if (*ptr == 'l' && *(ptr + 1) == 'o') {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
-          oper[2] = *ptr++;
+        } else if (str_new[index] == 'l' && str_new[index + 1] == 'o') {
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
+          oper[2] = str_new[index++];
           oper[3] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
-        } else if (*ptr == 'm' && *(ptr + 1) == 'o') {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
-          oper[2] = *ptr++;
+        } else if (str_new[index] == 'm' && str_new[index + 1] == 'o') {
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
+          oper[2] = str_new[index++];
           oper[3] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
-        } else if (*ptr == 'x') {
+        } else if (str_new[index] == 'x') {
           enqueue(0, 2, queue);
-          ptr++;
-        } else if (*ptr == 's' && *(ptr + 1) == 'q') {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
-          oper[2] = *ptr++;
-          oper[3] = *ptr++;
+          index++;
+        } else if (str_new[index]== 's' && str_new[index + 1] == 'q') {
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
+          oper[2] = str_new[index++];
+          oper[3] = str_new[index++];
           oper[4] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
-        } else if (*ptr == 'a' && *(ptr + 1) == 'c') {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
-          oper[2] = *ptr++;
-          oper[3] = *ptr++;
+        } else if (str_new[index] == 'a' && str_new[index + 1] == 'c') {
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
+          oper[2] = str_new[index++];
+          oper[3] = str_new[index++];
           oper[4] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
-        } else if (*ptr == 'a' && *(ptr + 1) == 's') {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
-          oper[2] = *ptr++;
-          oper[3] = *ptr++;
+        } else if (str_new[index] == 'a' && str_new[index + 1] == 's') {
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
+          oper[2] = str_new[index++];
+          oper[3] = str_new[index++];
           oper[4] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
-        } else if (*ptr == 'a' && *(ptr + 1) == 't') {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
-          oper[2] = *ptr++;
-          oper[3] = *ptr++;
+        } else if (str_new[index] == 'a' && str_new[index + 1] == 't') {
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
+          oper[2] = str_new[index++];
+          oper[3] = str_new[index++];
           oper[4] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
         } else {
-          oper[0] = *ptr++;
-          oper[1] = *ptr++;
-          oper[2] = *ptr++;
+          oper[0] = str_new[index++];
+          oper[1] = str_new[index++];
+          oper[2] = str_new[index++];
           oper[3] = '\0';
           enqueue(encode(oper), 1, queue);
           if (encode(oper) == -1) correct = 0;
@@ -405,19 +440,14 @@ namespace s21 {
       return data_;
     }
 
-    void Model::getValueFromExpressionForGraph(const std::string &str) {
-      char *s = new char[str.size() + 2];
-
-      for (int i = 0, k = 0; i < str.size(); ++i) {
-        if (str[i] != ' ') {
-          s[k++] = str[i];
-        }
-      }
+    void Model::getValueFromExpression(const std::string &str) {
+      std::string str_new = str;
+      str_new.erase(std::remove(str_new.begin(), str_new.end(), ' '), str_new.end());
 
       struct queue *q_infix = 0;
       struct queue *q_postfix = 0;
       q_infix = init_queue();
-      queue_input(q_infix, s);
+      queue_input(q_infix, str_new);
       q_postfix = init_queue();
       infixToPostfix(q_infix, q_postfix);
       double x = 4 * M_PI / 79 * 1;

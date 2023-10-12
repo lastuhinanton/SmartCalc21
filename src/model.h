@@ -9,6 +9,7 @@
 #include <vector>
 #include <cmath>
 #include <sstream>
+#include <cctype> 
 
 namespace s21 {
 
@@ -42,7 +43,7 @@ namespace s21 {
         public:
             Model() {}
             ~Model() {}
-            void getValueFromExpressionForGraph(const std::string &str);
+            void getValueFromExpression(const std::string &str);
             double getTheResult();
 
         private:
