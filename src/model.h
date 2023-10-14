@@ -1,5 +1,5 @@
-#ifndef SRC_MODEL_H_
-#define SRC_MODEL_H_
+#ifndef SRC_MODEL_H
+#define SRC_MODEL_H
 
 
 #include <iostream>
@@ -18,9 +18,12 @@ namespace s21 {
           "atan", "mod", "log", "ln", "sqrt", "~", "^"
     #define OPERATORS_INT \
       0, 1, 10, 11, 20, 21, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62
-    #define OPERATORS_COUNT 19
+    
+    #define M_PI 3.14159265358979323846264338327950288
 
+    const int OPERATORS_COUNT = 19;
     const int MAX = 1000;
+    const int WIDTH = 80;
 
     struct stack {
       int number;
@@ -43,8 +46,10 @@ namespace s21 {
         public:
             Model() {}
             ~Model() {}
-            void getValueFromExpression(const std::string &str);
-            double getTheResult();
+            int getValueFromExpression(const std::string &str, double *answer);
+            int getValueFromExpressionForGraphWithX(const std::string &str, double *answer, double X);
+            int getValueFromExpressionForGraphWithoutX(const std::string &str, double *answer);
+            int getValueFromExpressionWithX(const std::string &str, double *answer, double X);
 
         private:
             double data_;
@@ -56,4 +61,4 @@ namespace s21 {
 
 #include "model.tpp"
 
-#endif  // SRC_MODEL_H_
+#endif  // SRC_MODEL_H

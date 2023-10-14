@@ -3,34 +3,28 @@
 namespace s21 {
   
     
-    struct stack *init_stack(int n) {
-      struct stack *stack;
-      stack = (struct stack *)malloc(sizeof(struct stack));
-      if (stack != 0) {
-        stack->number = n;
-        stack->ptr = 0;
-      }
-      return stack;
+    stack *init_stack(int n) {
+      stack *stack_r;
+      stack_r = new stack;
+      stack_r->number = n;
+      stack_r->ptr = 0;
+      return stack_r;
     }
 
-    struct stack *push(int n, struct stack **stack) {
-      struct stack *push_number = (struct stack *)malloc(sizeof(struct stack));
-      if (stack != 0) {
-        push_number->number = n;
-        push_number->ptr = *stack;
-        *stack = push_number;
-      }
+    stack *push(int n, stack **stack_g) {
+      stack *push_number = new stack;
+      push_number->number = n;
+      push_number->ptr = *stack_g;
+      *stack_g = push_number;
       return push_number;
     }
 
-    struct stack *pop(int *n, struct stack **stack) {
-      if (*stack != 0) {
-        struct stack *pop_number = *stack;
-        *n = pop_number->number;
-        *stack = pop_number->ptr;
-        free(pop_number);
-      }
-      return *stack;
+    stack *pop(int *n, stack **stack_g) {
+      stack *pop_number = *stack_g;
+      *n = pop_number->number;
+      *stack_g = pop_number->ptr;
+      delete pop_number;
+      return *stack_g;
     }
 
     queue *init_queue() {
@@ -94,7 +88,7 @@ namespace s21 {
     }
 
 
-    int fromRPNtoValues(struct queue *q_postfix, double *result) {
+    int fromRPNtoValues(queue *q_postfix, double *result) {
       double number = 0, stack[MAX];
       int is_oper = 0, count = 0, flag = 0;
       while (!isEmpty(q_postfix)) {
@@ -234,12 +228,12 @@ namespace s21 {
       return flag;
     }
 
-    int insertValue(double x, struct queue *queue, struct queue *queue_x) {
-      struct queue *queue_backup = init_queue();
-      while (queue->first != 0) {
+    int insertValue(double x, queue *queue_g, queue *queue_x) {
+      queue *queue_backup = init_queue();
+      while (queue_g->first != 0) {
         double number;
         int code;
-        dequeue(&number, &code, queue);
+        dequeue(&number, &code, queue_g);
         enqueue(number, code, queue_backup);
         if (code == 2) {
           number = x;
@@ -247,14 +241,14 @@ namespace s21 {
         }
         enqueue(number, code, queue_x);
       }
-      queue->first = queue_backup->first;
-      queue->last = queue_backup->last;
-      free(queue_backup);
+      queue_g->first = queue_backup->first;
+      queue_g->last = queue_backup->last;
+      delete queue_backup;
       return 0;
     }
 
-    int infixToPostfix(struct queue *q_infix, struct queue *q_postfix) {
-      struct stack *stack = 0;
+    int infixToPostfix(queue *q_infix, queue *q_postfix) {
+      stack *stack = 0;
       double number_queue;
       int code, number_stack;
       while (!isEmpty(q_infix)) {
@@ -263,9 +257,9 @@ namespace s21 {
           enqueue(number_queue, code, q_postfix);
         } else {
           if (stack == 0) {
-            stack = init_stack((int)number_queue);
+            stack = init_stack(number_queue);
           } else if (number_queue == 0) {
-            push((int)number_queue, &stack);
+            push(number_queue, &stack);
           } else if (number_queue == 1) {
             do {
               pop(&number_stack, &stack);
@@ -276,7 +270,7 @@ namespace s21 {
               pop(&number_stack, &stack);
               enqueue(number_stack, 1, q_postfix);
             }
-            push((int)number_queue, &stack);
+            push(number_queue, &stack);
           }
         }
       }
@@ -287,22 +281,9 @@ namespace s21 {
       return 0;
     }
 
-    // int encode(std::string &s) {
-    //   int i = 0;
-    //   int code = -1;
-    //   while (i < operators_count && code == -1) {
-    //     if (s != operators_str[i]) {
-    //       code = operators_int[i];
-    //     }
-    //     std::cout << s << " " << code << std::endl;
-    //     i++;
-    //   }
-    //   return code;
-    // }
-
     int encode(char *s) {
       const int operator_int[] = {OPERATORS_INT};
-      char *operator_str[] = {OPERATORS_STR};
+      const char *operator_str[] = {OPERATORS_STR};
       int i = 0;
       int code = -1;
       while (i < OPERATORS_COUNT && code == -1) {
@@ -436,26 +417,160 @@ namespace s21 {
       return correct;
     }
 
-    double Model::getTheResult() {
-      return data_;
-    }
-
-    void Model::getValueFromExpression(const std::string &str) {
+    int Model::getValueFromExpression(const std::string &str, double *answer) {
+      int correct = 1;
       std::string str_new = str;
       str_new.erase(std::remove(str_new.begin(), str_new.end(), ' '), str_new.end());
 
-      struct queue *q_infix = 0;
-      struct queue *q_postfix = 0;
-      q_infix = init_queue();
-      queue_input(q_infix, str_new);
-      q_postfix = init_queue();
-      infixToPostfix(q_infix, q_postfix);
-      double x = 4 * M_PI / 79 * 1;
-      struct queue *queue_x = init_queue();
-      insertValue(x, q_postfix, queue_x);
-      double result = 0;
-      int check = fromRPNtoValues(queue_x, &result);
-      data_ = result;
+      queue *q_infix = 0;
+      queue *q_postfix = 0;
+      if (correct) {
+        q_infix = init_queue();
+        correct = (q_infix != 0);
+      }
+      if (correct) {
+        correct = queue_input(q_infix, str_new);
+      }
+      if (correct) {
+        q_postfix = init_queue();
+        correct = (q_postfix != 0);
+      }
+      if (correct) {
+        infixToPostfix(q_infix, q_postfix);
+        double x = 4 * M_PI / 79 * 1;
+        queue *queue_x = init_queue();
+        insertValue(x, q_postfix, queue_x);
+        double result = 0;
+        int check = fromRPNtoValues(queue_x, &result);
+        if (check == 1 || check == 4) {
+          *answer = 0;
+        } else {
+          *answer = result;
+        }
+      }
+      destroy_queue(q_infix);
+      destroy_queue(q_postfix);
+      return correct;
+    }
+
+    int Model::getValueFromExpressionForGraphWithX(const std::string &str, double *answer, double X) {
+      int correct = 1;
+      std::string str_new = str;
+      str_new.erase(std::remove(str_new.begin(), str_new.end(), ' '), str_new.end());
+
+      double *array_Y = answer;
+      queue *q_infix = 0;
+      queue *q_postfix = 0;
+      if (correct) {
+        q_infix = init_queue();
+        correct = (q_infix != 0);
+      }
+      if (correct) {
+        correct = queue_input(q_infix, str_new);
+      }
+      if (correct) {
+        q_postfix = init_queue();
+        correct = (q_postfix != 0);
+      }
+      if (correct) {
+        infixToPostfix(q_infix, q_postfix);
+        for (int i = 0; i < WIDTH && correct; i++) {
+          queue *queue_x = init_queue();
+          insertValue(X, q_postfix, queue_x);
+          double result = 0;
+          int check = fromRPNtoValues(queue_x, &result);
+          if (check == 1 || check == 4) {
+            correct = 0;
+          } else if (check == 2 || check == 3) {
+            array_Y[i] = 100;
+          } else {
+            array_Y[i] = result;
+          }
+          destroy_queue(queue_x);
+        }
+      }
+      destroy_queue(q_infix);
+      destroy_queue(q_postfix);
+
+      return correct;
+    }
+
+    int Model::getValueFromExpressionForGraphWithoutX(const std::string &str, double *answer) {
+      int correct = 1;
+      std::string str_new = str;
+      str_new.erase(std::remove(str_new.begin(), str_new.end(), ' '), str_new.end());
+
+      double *array_Y = answer;
+      queue *q_infix = 0;
+      queue *q_postfix = 0;
+      if (correct) {
+        q_infix = init_queue();
+        correct = (q_infix != 0);
+      }
+      if (correct) {
+        correct = queue_input(q_infix, str_new);
+      }
+      if (correct) {
+        q_postfix = init_queue();
+        correct = (q_postfix != 0);
+      }
+      if (correct) {
+        infixToPostfix(q_infix, q_postfix);
+        for (int i = 0; i < WIDTH && correct; i++) {
+          double X = 4 * M_PI / 79 * i;
+          queue *queue_x = init_queue();
+          insertValue(X, q_postfix, queue_x);
+          double result = 0;
+          int check = fromRPNtoValues(queue_x, &result);
+          if (check == 1 || check == 4) {
+            correct = 0;
+          } else if (check == 2 || check == 3) {
+            array_Y[i] = 100;
+          } else {
+            array_Y[i] = result;
+          }
+          destroy_queue(queue_x);
+        }
+      }
+      destroy_queue(q_infix);
+      destroy_queue(q_postfix);
+
+      return correct;
+    }
+
+    int Model::getValueFromExpressionWithX(const std::string &str, double *answer, double X) {
+      int correct = 1;
+      std::string str_new = str;
+      str_new.erase(std::remove(str_new.begin(), str_new.end(), ' '), str_new.end());
+
+      queue *q_infix = 0;
+      queue *q_postfix = 0;
+      if (correct) {
+        q_infix = init_queue();
+        correct = (q_infix != 0);
+      }
+      if (correct) {
+        correct = queue_input(q_infix, str_new);
+      }
+      if (correct) {
+        q_postfix = init_queue();
+        correct = (q_postfix != 0);
+      }
+      if (correct) {
+        infixToPostfix(q_infix, q_postfix);
+        queue *queue_x = init_queue();
+        insertValue(X, q_postfix, queue_x);
+        double result = 0;
+        int check = fromRPNtoValues(queue_x, &result);
+        if (check == 1 || check == 4) {
+          *answer = 0;
+        } else {
+          *answer = result;
+        }
+      }
+      destroy_queue(q_infix);
+      destroy_queue(q_postfix);
+      return correct;
     }
 
     bool Model::isOperator(const std::string& s) {
