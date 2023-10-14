@@ -1,5 +1,4 @@
-#include "model.h"
-#include "controller.h"
+#include "calculator.h"
 
 int main(void) {
     double answer;

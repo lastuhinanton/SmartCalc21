@@ -2,8 +2,6 @@
 #define SRC_CONTROLLER_H
 
 
-
-
 namespace s21 {
     class Controller 
     {
