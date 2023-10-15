@@ -50,9 +50,17 @@ namespace s21 {
             int getValueFromExpressionForGraphWithX(const std::string &str, double *answer, double X);
             int getValueFromExpressionForGraphWithoutX(const std::string &str, double *answer);
             int getValueFromExpressionWithX(const std::string &str, double *answer, double X);
+            
+            void initDepositCalculatorData(int period, double deposit, double rate, double tax);
+            void getValuesForDepositCalculatorWithCapitalization(double* profit_percent, double* profit_sum, double *tax_sum);
+            void getValuesForDepositCalculatorWithoutCapitalization(double* profit_percent, double* profit_sum, double *tax_sum);
 
         private:
             double data_;
+            int periodDep_;
+            double depositDep_;
+            double rateDep_;
+            double taxDep_;
             bool isOperator(const std::string& s);
             bool isFunction(const std::string& s);
     };

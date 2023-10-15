@@ -12,6 +12,10 @@ namespace s21 {
             int calcExpressionWithX(const std::string &str, double *answer, double X);
             int calcExpressionForGraphWithX(const std::string &str, double *answer, double X);
             int calcExpressionForGraphWithoutX(const std::string &str, double *answer);
+
+            void initDepData(int period, double deposit, double rate, double tax);
+            void calcDepWithCapital(double* profit_percent, double* profit_sum, double *tax_sum);
+            void calcDepWithoutCapital(double* profit_percent, double* profit_sum, double *tax_sum);
         private:
             Model *model;
     };

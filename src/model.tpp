@@ -582,4 +582,28 @@ namespace s21 {
               s == "atan" || s == "sqrt" || s == "ln" || s == "log");
     }
 
+
+    void Model::initDepositCalculatorData(int period, double deposit, double rate, double tax) {
+      periodDep_ = period;
+      depositDep_ = deposit;
+      rateDep_ = rate;
+      taxDep_ = tax;
+    }
+
+    void Model::getValuesForDepositCalculatorWithCapitalization(double* profit_percent, double* profit_sum, double *tax_sum) {
+      int days_of_month = 31;
+      *profit_sum = depositDep_;
+      for (int i = 0; i <= periodDep_ % days_of_month; i++) {
+        *profit_sum += ((*profit_sum * rateDep_ * days_of_month) / 365) / 100;
+      }
+      *profit_percent = *profit_sum - depositDep_;
+      *tax_sum = (*profit_sum * taxDep_) / 100;
+    }
+
+    void Model::getValuesForDepositCalculatorWithoutCapitalization(double* profit_percent, double* profit_sum, double *tax_sum) {
+      *profit_percent = ((depositDep_ * rateDep_ * periodDep_) / 365) / 100;
+      *profit_sum = depositDep_ + *profit_percent;
+      *tax_sum = (*profit_sum * taxDep_) / 100;
+    }
+
 };

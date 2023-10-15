@@ -17,4 +17,17 @@ namespace s21 {
     int Controller::calcExpressionForGraphWithoutX(const std::string &str, double *answer) {
         return model->getValueFromExpressionForGraphWithoutX(str, answer);
     }
+
+    void Controller::initDepData(int period, double deposit, double rate, double tax) {
+        model->initDepositCalculatorData(period, deposit, rate, tax);
+    }
+
+    void Controller::calcDepWithCapital(double* profit_percent, double* profit_sum, double *tax_sum) {
+        model->getValuesForDepositCalculatorWithCapitalization(profit_percent, profit_sum, tax_sum);
+    }
+
+    void Controller::calcDepWithoutCapital(double* profit_percent, double* profit_sum, double *tax_sum) {
+        model->getValuesForDepositCalculatorWithoutCapitalization(profit_percent, profit_sum, tax_sum);
+    }
+
 }
