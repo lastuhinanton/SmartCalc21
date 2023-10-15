@@ -1,16 +1,16 @@
 .PHONY: s21_calc.a gcov_report test clean
 
 OS=$(shell uname)
-BASE=graph.c lib/*.c
-TEST_C=tests/*.c
-OBJS=graph.o input_formula.o calculate.o code.o input_formula.o polish_notation.o stack.o
-GCC=gcc -std=c11 -Wall -Werror -Wextra -fsanitize=address
+
+CFLAGS=-Wall -Werror -Wextra
+CPPFLAGS=-lstdc++ -std=c++17
+LIBS=-lgtest -lgcov
 
 # -- Main targets ---
 START=start
 LIB=s21_calc.a
 GCOV=gcov_report
-TEST=tests
+TEST=test
 CLEAN=clean
 INSTALL=install
 UNINSTALL=uninstall
@@ -27,6 +27,10 @@ endif
 
 all: $(START)
 
+$(TEST): ${CLEAN}
+	@gcc $(CFLAGS) $(LIBS) $(CPPFLAGS) --coverage unit_tests.cpp Controller/controller.cpp Model/model.cpp -o test
+	@./test
+
 $(LIB): main $(OBJS) 
 	rm -rf $(LIB)
 	ar rcs $(LIB) $(OBJS)
@@ -35,16 +39,12 @@ $(LIB): main $(OBJS)
 .c.o:
 	$(GCC) -c -g -o $@ $<
 
-
-main:
-	$(GCC) -c $(BASE)
-
 $(START): $(INSTALL)
 	$(OPEN)
 
 $(INSTALL): $(CLEAN)
 	mkdir build
-	cd SmartCalc/ && qmake && make && make clean && rm -rf Makefile && mv SmartCalc.app ../build/
+	cd View/SmartCalc/ && qmake && make && make clean && rm -rf Makefile && mv SmartCalc.app ../../build/
 
 $(UNINSTALL):
 	rm -rf build
@@ -61,36 +61,28 @@ $(DIST): $(INSTALL)
 	rm -rf Archive_CalcApp_v1_0/
 	rm -rf build
 
-$(TEST): $(LIB) 
-	$(GCC) -g $(TEST_C) -o $(TEST).out -L. $(LIB) -lcheck -lm $(LINUX)
-ifeq ($(OS), Darwin)
-	./$(TEST).out
-else
-	CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./$(TEST).out
-endif
-
-$(GCOV): $(LIB)
+$(GCOV): $(TEST)
 	# if lcov is not found
 	# eval "$(/opt/goinfre/USERNAME/homebrew/bin/brew shellenv)"
 	# brew update --force --quiet
 	# chmod -R go-w "$(brew --prefix)/share/zsh"
-	rm -rf *.o *.gcno *.gcda
-	$(GCC) $(TEST_C) $(BASE) -o gcov --coverage -lcheck -lm $(LINUX) -L. $(LIB)
-	./gcov
-	lcov -t "gcov" -o $(GCOV).info --no-external -c -d .
-	genhtml -o report $(GCOV).info
-	$(VIEWHTML)
+
+	@lcov --ignore-errors mismatch -t "./gcov" -o report.info --no-external -c -d .
+	@genhtml --ignore-errors mismatch -o report report.info
+	@open ./report/index.html
 
 rebuild: $(CLEAN) all
 
 $(CLEAN):
-	rm -rf *.a *.o *.info
-	rm -rf *.dSYM *.out *.inf
-	rm -rf *.gcda *.out lib/*.o
-	rm -rf build *.gcno gcov
-	rm -rf *.tgz
+	@rm -rf *.a *.o *.info
+	@rm -rf *.dSYM *.out *.inf
+	@rm -rf *.gcda *.out lib/*.o
+	@rm -rf build *.gcno gcov
+	@rm -rf *.tgz test
 
-check:
-	cp ../materials/linters/.clang-format .
-	clang-format -n *.c *.h ./lib/*.c ./lib/*.h ./SmartCalc/*.cpp
-	rm -rf .clang-format
+style:
+	find . -name "*.h" -o -name "*.cc" -o -name "*.tpp" | xargs clang-format --style=google -n
+
+gost:
+	find . -name "*.h" -o -name "*.cc" -o -name "*.tpp" | xargs clang-format --style=google -i
+
