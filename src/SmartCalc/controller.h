@@ -2,6 +2,8 @@
 #define SRC_CONTROLLER_H
 
 
+#include "model.h"
+
 namespace s21 {
     class Controller 
     {
@@ -26,7 +28,5 @@ namespace s21 {
     };
 }
 
-#include "model.h"
-#include "controller.tpp"
 
 #endif // SRC_CONTROLLER_H

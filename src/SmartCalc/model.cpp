@@ -3,7 +3,7 @@
 namespace s21 {
   
     
-    stack *init_stack(int n) {
+    stack * Model::init_stack(int n) {
       stack *stack_r;
       stack_r = new stack;
       stack_r->number = n;
@@ -11,7 +11,7 @@ namespace s21 {
       return stack_r;
     }
 
-    stack *push(int n, stack **stack_g) {
+    stack* Model::push(int n, stack **stack_g) {
       stack *push_number = new stack;
       push_number->number = n;
       push_number->ptr = *stack_g;
@@ -19,7 +19,7 @@ namespace s21 {
       return push_number;
     }
 
-    stack *pop(int *n, stack **stack_g) {
+    stack* Model::pop(int *n, stack **stack_g) {
       stack *pop_number = *stack_g;
       *n = pop_number->number;
       *stack_g = pop_number->ptr;
@@ -27,14 +27,14 @@ namespace s21 {
       return *stack_g;
     }
 
-    queue *init_queue() {
+    queue* Model::init_queue() {
       queue* q_temp = new queue;
       q_temp->first = 0;
       q_temp->last = 0;
       return q_temp;
     }
     
-    queue *enqueue(double d, int n, queue *t_queue) {
+    queue* Model::enqueue(double d, int n, queue *t_queue) {
       list *t_list = new list;
       t_list->ptr = 0;
       t_list->number = d;
@@ -49,9 +49,9 @@ namespace s21 {
       return t_queue;
     }
 
-    int isEmpty(queue *t_queue) { return t_queue == 0 || t_queue->first == 0; }
+    int Model::isEmpty(queue *t_queue) { return t_queue == 0 || t_queue->first == 0; }
 
-    queue *dequeue(double *d, int *n, queue *t_queue) {
+    queue* Model::dequeue(double *d, int *n, queue *t_queue) {
       if (!isEmpty(t_queue)) {
         *d = t_queue->first->number;
         *n = t_queue->first->is_oper;
@@ -63,7 +63,7 @@ namespace s21 {
       return t_queue;
     }
 
-    void destroy_queue(queue *t_queue) {
+    void Model::destroy_queue(queue *t_queue) {
       if (t_queue != 0) {
         while (t_queue->first != 0) {
           list *destroyed = t_queue->first;
@@ -74,12 +74,12 @@ namespace s21 {
       }
     }
 
-    int isNumber(char c) {
+    int Model::isNumber(char c) {
       int res = ((c >= 0x30 && c <= 0x39) || c == 0x2c || c == 0x2e) ? 1 : 0;
       return res;
     }
 
-    int isOperatorOrParanth(char c) {
+    int Model::isOperatorOrParanth(char c) {
       int res = (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' ||
                 c == ')' || c == '^' || c == '~')
                     ? 1
@@ -88,7 +88,7 @@ namespace s21 {
     }
 
 
-    int fromRPNtoValues(queue *q_postfix, double *result) {
+    int Model::fromRPNtoValues(queue *q_postfix, double *result) {
       double number = 0, stack[MAX];
       int is_oper = 0, count = 0, flag = 0;
       while (!isEmpty(q_postfix)) {
@@ -228,7 +228,7 @@ namespace s21 {
       return flag;
     }
 
-    int insertValue(double x, queue *queue_g, queue *queue_x) {
+    int Model::insertValue(double x, queue *queue_g, queue *queue_x) {
       queue *queue_backup = init_queue();
       while (queue_g->first != 0) {
         double number;
@@ -247,7 +247,7 @@ namespace s21 {
       return 0;
     }
 
-    int infixToPostfix(queue *q_infix, queue *q_postfix) {
+    int Model::infixToPostfix(queue *q_infix, queue *q_postfix) {
       stack *stack = 0;
       double number_queue;
       int code, number_stack;
@@ -281,7 +281,7 @@ namespace s21 {
       return 0;
     }
 
-    int encode(char *s) {
+    int Model::encode(char *s) {
       const int operator_int[] = {OPERATORS_INT};
       const char *operator_str[] = {OPERATORS_STR};
       int i = 0;
@@ -295,7 +295,7 @@ namespace s21 {
       return code;
     }
 
-    double customStrToDouble(const std::string& str, int *ind) {
+    double Model::customStrToDouble(const std::string& str, int *ind) {
       double result = 0.0;
       double fraction = 0.1;
       bool isNegative = false;
@@ -331,12 +331,12 @@ namespace s21 {
       return result;
     }
 
-    int queue_input(struct queue *queue, const std::string &str) {
+    int Model::queue_input(struct queue *queue, const std::string &str) {
       std::string str_new = str;
       char oper[5];
       int index = 0;
       int correct = 1;
-      while (index != str_new.size() && correct) {
+      while (index != (int)str_new.size() && correct) {
         if (isNumber(str_new[index])) {
           double d = customStrToDouble(str_new, &index);
           correct = isnormal(d);

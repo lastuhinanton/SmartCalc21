@@ -1,0 +1,4 @@
+#ifndef TMP_ARRAY_HEADER_H
+#define TMP_ARRAY_HEADER_H
+
+#endif  // TMP_ARRAY_HEADER_H

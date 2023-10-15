@@ -60,7 +60,6 @@ namespace s21 {
             void getValuesForMortageDifferentyCalculator(int term_d, double* amount_d, double* base_loan, double* percent_loan, int* over_payment, int* whole_payment);
 
         private:
-            double data_;
             int periodDep_;
             double depositDep_;
             double rateDep_;
@@ -70,10 +69,25 @@ namespace s21 {
             double term_;
             bool isOperator(const std::string& s);
             bool isFunction(const std::string& s);
+            stack* init_stack(int n);
+            stack* push(int n, stack **stack_g);
+            stack* pop(int *n, stack **stack_g);
+            queue* init_queue();
+            queue* enqueue(double d, int n, queue *t_queue);
+            int isEmpty(queue *t_queue);
+            queue* dequeue(double *d, int *n, queue *t_queue);
+            void destroy_queue(queue *t_queue);
+            int isNumber(char c);
+            int isOperatorOrParanth(char c);
+            int fromRPNtoValues(queue *q_postfix, double *result);
+            int insertValue(double x, queue *queue_g, queue *queue_x);
+            int infixToPostfix(queue *q_infix, queue *q_postfix);
+            int encode(char *s);
+            double customStrToDouble(const std::string& str, int *ind);
+            int queue_input(struct queue *queue, const std::string &str);
+            
     };
 
 }
-
-#include "model.tpp"
 
 #endif  // SRC_MODEL_H

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DepositWindow</class>
+ <widget class="QWidget" name="DepositWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1281</width>
+    <height>641</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="backgroundLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>-10</y>
+     <width>1281</width>
+     <height>641</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>82</y>
+     <width>1101</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	background-color: #151c26;
+	border-radius: 20px;
+	border: 1px solid #44eb9b;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="previousButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>71</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	background-color: #44eb9b;
+	border-radius: 10px;
+	border-image: url(:/src/image/previous.png) stretch; 
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>426</y>
+     <width>349</width>
+     <height>2</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	background-color: #44eb9b;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="capitalisationCheck">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>390</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Capitalisation percents</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>513</x>
+     <y>180</y>
+     <width>31</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	background-color: #44eb9b;
+	color: #151c26;
+	border-radius: 10px;
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Run</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>130</y>
+     <width>351</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="period">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	color: #44eb9b;
+	background-color: rgb(74, 71, 169);
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Percents</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="percents">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	color: #44eb9b;
+	background-color: rgb(74, 71, 169);
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Tax</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="tax">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	color: #44eb9b;
+	background-color: rgb(74, 71, 169);
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Deposit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="deposit">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	color: #44eb9b;
+	background-color: rgb(74, 71, 169);
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Period</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>440</y>
+     <width>351</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="sumTax">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	color: #44eb9b;
+	background-color: rgb(74, 71, 169);
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Sum of tax</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Got percents</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	color: #44eb9b;
+	font-weight: bold;
+	font-size: 17px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>End deposit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="gotPercents">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	color: #44eb9b;
+	background-color: rgb(74, 71, 169);
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="endDeposit">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+	color: #44eb9b;
+	background-color: rgb(74, 71, 169);
+}</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="graph">
+   <property name="geometry">
+    <rect>
+     <x>580</x>
+     <y>86</y>
+     <width>581</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout"/>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
