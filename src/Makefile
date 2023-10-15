@@ -36,6 +36,9 @@ $(LIB): main $(OBJS)
 	ar rcs $(LIB) $(OBJS)
 	ranlib $(LIB)
 
+open:
+	open ./build/SmartCalc.app
+
 .c.o:
 	$(GCC) -c -g -o $@ $<
 
