@@ -16,6 +16,11 @@ namespace s21 {
             void initDepData(int period, double deposit, double rate, double tax);
             void calcDepWithCapital(double* profit_percent, double* profit_sum, double *tax_sum);
             void calcDepWithoutCapital(double* profit_percent, double* profit_sum, double *tax_sum);
+
+            void initMortData(double amount, double rate, int term);
+            void calcMortAnnuity(int* mounth_payment, int* over_payment, int* whole_payment);
+            void calcMortDifferenty(int term_d, double* amount_d, double* base_loan, double* percent_loan, int* over_payment, int* whole_payment);
+
         private:
             Model *model;
     };

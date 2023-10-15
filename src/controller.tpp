@@ -30,4 +30,16 @@ namespace s21 {
         model->getValuesForDepositCalculatorWithoutCapitalization(profit_percent, profit_sum, tax_sum);
     }
 
+    void Controller::initMortData(double amount, double rate, int term) {
+        model->initMortageCalculatorData(amount, rate, term);
+    }
+
+    void Controller::calcMortAnnuity(int* mounth_payment, int* over_payment, int* whole_payment) {
+        model->getValuesForMortageAnnuityCalculator(mounth_payment, over_payment, whole_payment);
+    }
+
+    void Controller::calcMortDifferenty(int term_d, double* amount_d, double* base_loan, double* percent_loan, int* over_payment, int* whole_payment) {
+        model->getValuesForMortageDifferentyCalculator(term_d, amount_d, base_loan, percent_loan, over_payment, whole_payment);
+    }
+
 }

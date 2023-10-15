@@ -13,7 +13,21 @@ int main(void) {
 
     std::cout << "Profit_sum == " << profit_percent << std::endl;
     std::cout << "Tax_sum == " << tax_sum << std::endl;
-    std::cout << "End_deposit == " << profit_sum - tax_sum << std::endl;
+    std::cout << "End_deposit == " << profit_sum - tax_sum << std::endl << std::endl;;
+
+
+
+    int mounth_payment = 0;
+    int over_payment = 0;
+    int whole_payment = 0;
+
+    c.initMortData(1000, 7, 12);
+    c.calcMortAnnuity(&mounth_payment, &over_payment, &whole_payment);
+
+    std::cout << "Mounth_payment == " << mounth_payment << std::endl;
+    std::cout << "Over_payment == " << over_payment << std::endl;
+    std::cout << "Whole_payment == " << whole_payment << std::endl;
+
 
     return 0;
 }

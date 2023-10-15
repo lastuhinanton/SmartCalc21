@@ -606,4 +606,29 @@ namespace s21 {
       *tax_sum = (*profit_sum * taxDep_) / 100;
     }
 
+
+
+    void Model::initMortageCalculatorData(double amount, double rate, int term) {
+      amount_ = amount;
+      rate_ = rate;
+      term_ = term;
+    }
+
+    void Model::getValuesForMortageAnnuityCalculator(int* mounth_payment, int* over_payment, int* whole_payment) {
+      double percent_rate = (double)rate_ / (100 * 12);
+      *mounth_payment =
+          amount_ * ((percent_rate) / (1 - pow((1 + percent_rate), -term_)));
+      *whole_payment = *mounth_payment * term_;
+      *over_payment = *whole_payment - amount_;
+    }
+
+    void Model::getValuesForMortageDifferentyCalculator(int term_d, double* amount_d, double* base_loan, double* percent_loan, int* over_payment, int* whole_payment) {
+      *base_loan = *amount_d / term_d;
+      *percent_loan =
+          (*amount_d * ((double)rate_ / 100) * 30) / (365);
+      *over_payment += *percent_loan;
+      *whole_payment += (*base_loan + *percent_loan);
+      *amount_d -= *base_loan;
+    }
+
 };

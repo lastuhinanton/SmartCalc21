@@ -50,10 +50,14 @@ namespace s21 {
             int getValueFromExpressionForGraphWithX(const std::string &str, double *answer, double X);
             int getValueFromExpressionForGraphWithoutX(const std::string &str, double *answer);
             int getValueFromExpressionWithX(const std::string &str, double *answer, double X);
-            
+
             void initDepositCalculatorData(int period, double deposit, double rate, double tax);
             void getValuesForDepositCalculatorWithCapitalization(double* profit_percent, double* profit_sum, double *tax_sum);
             void getValuesForDepositCalculatorWithoutCapitalization(double* profit_percent, double* profit_sum, double *tax_sum);
+
+            void initMortageCalculatorData(double amount, double rate, int term);
+            void getValuesForMortageAnnuityCalculator(int* mounth_payment, int* over_payment, int* whole_payment);
+            void getValuesForMortageDifferentyCalculator(int term_d, double* amount_d, double* base_loan, double* percent_loan, int* over_payment, int* whole_payment);
 
         private:
             double data_;
@@ -61,6 +65,9 @@ namespace s21 {
             double depositDep_;
             double rateDep_;
             double taxDep_;
+            double amount_;
+            double rate_;
+            double term_;
             bool isOperator(const std::string& s);
             bool isFunction(const std::string& s);
     };
